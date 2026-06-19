@@ -27,16 +27,28 @@ python scripts/score_leads.py
 This updates/creates the database file `scored_leads.json`.
 
 ## Step 3 — Launch the Human-in-the-Loop Web App
-Human verification is required before finalizing scores. Start the local server:
+Human verification is required before finalizing scores. You can run either the custom premium HTML server or the Streamlit application:
+
+### Option A: Custom HTML Server (Recommended - Premium Glassmorphism UI)
+Start the local server:
 ```powershell
 python server.py
 ```
-This serves a premium dashboard on `http://localhost:9090`. In the dashboard:
+This serves a premium dashboard on `http://localhost:9090`.
+
+### Option B: Streamlit Application
+Start the Streamlit app:
+```powershell
+streamlit run app.py
+```
+This launches the Streamlit interface on `http://localhost:8501`.
+
+In the dashboard:
 1. Review the KPI metrics (Total leads, VIP leads, Junk leads).
 2. Filter or search through leads.
 3. Review AI score details and reasons.
 4. Manually override scores, modify comments, or change the status if needed.
-5. Click **Save** to update the local database.
+5. Save/Confirm to update the local database.
 
 ## Step 4 — Export Scored Data
 Once all leads are audited, click the **Export Excel** button on the dashboard or access `http://localhost:9090/api/export` to generate `scored_leads_final.xlsx`.
