@@ -4,15 +4,23 @@ import json
 import urllib.request
 import pandas as pd
 
+import requests
+
 # Google Sheets download URL
 SHEET_URL = "https://docs.google.com/spreadsheets/d/16tCAf_qqtgYZxoumYQKMEOdBhKE0wg5A/export?format=xlsx"
 LOCAL_EXCEL = "customer_data.xlsx"
 LOCAL_JSON = "scored_leads.json"
 
 def download_data():
-    """Tải dữ liệu từ Google Sheets"""
+    """Tải dữ liệu từ Google Sheets sử dụng requests để có độ tương thích cao"""
     print(f"Downloading data from: {SHEET_URL}")
-    urllib.request.urlretrieve(SHEET_URL, LOCAL_EXCEL)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    }
+    response = requests.get(SHEET_URL, headers=headers, timeout=30)
+    response.raise_for_status()
+    with open(LOCAL_EXCEL, "wb") as f:
+        f.write(response.content)
     print("Data downloaded successfully!")
 
 def score_text(text):
