@@ -127,8 +127,15 @@ if leads:
         }
         for l in filtered_leads
     ])
+    # Render bảng bằng Markdown để tránh import pyarrow (lỗi trên môi trường ARM64 Windows)
+    markdown_table = "| ID | Họ Tên | SĐT | Mô tả Nhu Cầu | Điểm AI | Phân Loại | Duyệt | Ghi chú |\n"
+    markdown_table += "| :---: | :--- | :---: | :--- | :---: | :---: | :---: | :--- |\n"
+    for _, row in df_display.iterrows():
+        desc = str(row["Mô tả Nhu Cầu"]).replace("|", "\\|").replace("\n", " ")
+        comm = str(row["Ghi chú kiểm duyệt"]).replace("|", "\\|").replace("\n", " ")
+        markdown_table += f"| {row['ID']} | {row['Họ Tên']} | {row['SĐT']} | {desc} | **{row['Điểm AI']}** | `{row['Phân Loại']}` | {row['Duyệt Thủ Công']} | *{comm}* |\n"
     
-    st.dataframe(df_display, use_container_width=True, hide_index=True)
+    st.markdown(markdown_table, unsafe_allow_html=True)
 
     # -------------------------------------------------------------
     # KHU VỰC HUMAN-IN-THE-LOOP (CHỈNH SỬA / DUYỆT LEAD)
