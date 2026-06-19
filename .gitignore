@@ -1,0 +1,14 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Local databases and spreadsheets
+customer_data.xlsx
+scored_leads.json
+scored_leads_final.xlsx
+
+# IDE / System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
