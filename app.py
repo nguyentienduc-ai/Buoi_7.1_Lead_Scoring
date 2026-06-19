@@ -28,8 +28,8 @@ def save_data(data):
 
 # Helper: trigger sync script
 def run_sync():
-    script_path = os.path.join("scripts", "score_leads.py")
-    subprocess.run(["python", script_path], capture_output=True)
+    from scripts.score_leads import process_and_save
+    process_and_save()
 
 # -------------------------------------------------------------
 # DỰNG GIAO DIỆN STREAMLIT
